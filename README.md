@@ -2,7 +2,7 @@
 
 ![Screenshot](Screenshots/1.png)
 
-Online shopping site wirtten in ASP\.NET Core by Wojciech Kieloch as the final assigment for Application Design Course in ASP\.NET 2025/2026 at the University of Wrocław.
+An online shopping site wirtten in ASP\.NET Core by Wojciech Kieloch as the final assigment for Application Design Course in ASP\.NET 2025/2026 at the University of Wrocław.
 
 ## Requirements & Running
 
@@ -26,4 +26,5 @@ Administrator:
 
 - Adding/modifying/deleting products in the store
 - Viewing the list of users
+
 - Viewing the list of placed/open orders
