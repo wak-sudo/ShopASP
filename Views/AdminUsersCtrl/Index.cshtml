@@ -1,0 +1,59 @@
+﻿@using ShopASP.DTOs
+@using ShopASP.Utils
+@model Paging<UserDto>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/AdminUsers.css" asp-append-version="true" />
+}
+
+@{
+    ViewData["Title"] = "User List";
+}
+
+<div class="users-container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>User Management</h2>
+        <a asp-controller="AdminPanelCtrl" asp-action="Index" class="btn btn-outline">Back to Admin Panel</a>
+    </div>
+
+    <table class="users-table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Items)
+            {
+                <tr>
+                    <td style="font-weight: 500;">@user.UserName</td>
+                    <td>
+                        @if (user.IsAdmin)
+                        {
+                            <span class="badge badge-admin">Admin</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-user">User</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="pagination-controls">
+        @if (Model.CurrentPage > 1)
+        {
+            <a asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage - 1)" class="btn btn-outline">« Previous</a>
+        }
+
+        <span class="page-info">Page <strong>@Model.CurrentPage</strong> of @Model.TotalPages</span>
+
+        @if (Model.CurrentPage < Model.TotalPages)
+        {
+            <a asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage + 1)" class="btn btn-outline">Next »</a>
+        }
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Order Confirmed";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/OrderTaken.css" asp-append-version="true" />
+}
+
+<div class="order-success-wrapper">
+    <div class="order-success-card">
+        <span class="success-icon-animated">🛍️</span>
+
+        <h2>Thank you for your order!</h2>
+        <p>
+            The order has been made successfully. Our team is now preparing your items for shipment.
+            You will receive a confirmation email shortly.
+        </p>
+
+        <div class="actions">
+            <a asp-controller="HomeCtrl" asp-action="Index" class="btn btn-primary">
+                Return to the Home page
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿@section Styles {
+    <link rel="stylesheet" href="~/css/Error.css" asp-append-version="true" />
+}
+
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="error-container">
+    <div class="error-icon">⚠️</div>
+
+    <h2>An error occurred</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="error-message">
+            @ViewBag.Error
+        </div>
+    }
+    else
+    {
+        <p>Something went wrong. Please try again later.</p>
+    }
+
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;" />
+
+    <div class="error-footer">
+        <a asp-controller="HomeCtrl" asp-action="Index" class="btn btn-primary">
+            Return to Home Page
+        </a>
+    </div>
+</div>

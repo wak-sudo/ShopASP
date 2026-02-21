@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Admin dashboard";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/AdminPanel.css" asp-append-version="true" />
+}
+
+<div class="admin-dashboard">
+    <h2>Panel Administratora</h2>
+
+    <div class="admin-grid">
+        <form asp-controller="AdminProductAddCtrl" asp-action="Index" method="get" class="admin-card-form">
+            <button type="submit">
+                <span>➕</span>
+                Add Product
+            </button>
+        </form>
+
+        <form asp-controller="AdminOrdersCtrl" asp-action="Index" method="get" class="admin-card-form">
+            <button type="submit">
+                <span>📦</span>
+                Order List
+            </button>
+        </form>
+
+        <form asp-controller="AdminUsersCtrl" asp-action="Index" method="get" class="admin-card-form">
+            <button type="submit">
+                <span>👥</span>
+                User List
+            </button>
+        </form>
+    </div>
+
+    <div class="admin-footer">
+        <a asp-controller="HomeCtrl" asp-action="Index" class="btn btn-outline">Home page</a>
+    </div>
+</div>

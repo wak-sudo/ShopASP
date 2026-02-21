@@ -1,0 +1,60 @@
+﻿@model ShopASP.DTOs.ProductDto
+@using ShopASP.Utils
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Product.css" asp-append-version="true" />
+}
+
+<div class="product-details-container">
+    @if (TempData[Constants.TempDataInfo] is string msg)
+    {
+        <div class="alert-success" style="margin-bottom: 20px;">@msg</div>
+    }
+
+    @if (User.IsInRole(Constants.AdminRoleName))
+    {
+        <div class="admin-bar">
+            <strong>🛠 Admin Actions:</strong>
+            <a asp-controller="AdminProductEditCtrl"
+               asp-action="Index"
+               asp-route-prodcutId="@Model.Id"
+               class="btn btn-outline" style="font-size: 0.8rem;">Edit Product</a>
+        </div>
+    }
+
+    <div class="product-layout">
+        <div class="product-image-mock" style="background: #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; min-height: 400px;">
+            <span style="color: #94a3b8; font-size: 5rem;">📦</span>
+        </div>
+
+        <div class="product-info">
+            <h2>@Model.Name</h2>
+
+            <div class="product-price">
+                @Model.Price.ToString("C", Constants.CurrentCulture)
+            </div>
+
+            <div class="product-description">
+                <strong>Description:</strong><br />
+                @Model.Description
+            </div>
+
+            <form asp-controller="ProductCtrl" asp-action="AddToCart" method="post" class="purchase-section">
+                <input type="hidden" name="productId" value="@Model.Id" />
+
+                <div class="quantity-wrapper">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" class="quantity-input" />
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-add-cart">
+                    🛒 Add to Cart
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+        <a asp-controller="HomeCtrl" asp-action="Index" class="btn btn-outline">← Back to Shopping</a>
+    </div>
+</div>

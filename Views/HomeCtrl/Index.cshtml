@@ -1,0 +1,84 @@
+﻿@using ShopASP.Models
+@using ShopASP.Utils
+@model Paging<Product>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+
+@{
+    ViewData["Title"] = "Home";
+    string searchQuery = Context.Request.Query["searchQuery"].ToString() ?? "";
+}
+
+<nav class="main-nav">
+    <div class="logo"><strong>ShopASP</strong></div>
+    <div class="nav-links">
+        <a asp-action="Index" asp-controller="ShoppingCartCtrl" class="nav-item">🛒 Cart</a>
+
+        <div class="nav-divider"></div>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <span style="margin-right: 15px;">Hi, <strong>@User.Identity.Name</strong></span>
+
+            <a asp-action="Logout" asp-controller="HomeCtrl" class="btn-outline btn" style="margin-right: 10px;">Logout</a>
+
+            @if (User.IsInRole(Constants.AdminRoleName))
+            {
+                <a asp-action="Index" asp-controller="AdminPanelCtrl" class="btn-admin">Admin Panel</a>
+            }
+        }
+        else
+        {
+            <a asp-action="Index" asp-controller="LoginCtrl" style="margin-right: 15px;">Login</a>
+            <a asp-action="Index" asp-controller="RegisterCtrl" class="btn btn-primary">Register</a>
+        }
+    </div>
+</nav>
+
+<div style="padding: 20px;">
+    <h2>Available Products</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert-error" style="color: var(--danger); padding: 10px; border: 1px solid; border-radius: 6px; margin-bottom: 20px;">@ViewBag.Error</div>
+    }
+
+    <form method="get" asp-action="Index" asp-controller="HomeCtrl" class="search-container">
+        <input type="text" name="searchQuery" value="@searchQuery" placeholder="Search for products..." class="search-input" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    @if (Model?.Items != null && Model.Items.Any())
+    {
+        <ul class="product-grid">
+            @foreach (var p in Model.Items)
+            {
+                <li class="product-card">
+                    <h3>@p.Name</h3>
+                    <p>Price: <strong>@p.Price.ToString("C", Constants.CurrentCulture)</strong></p>
+                    <a asp-action="Index" asp-controller="ProductCtrl" asp-route-id="@p.Id" class="btn btn-outline" style="width: 100%; text-align: center;">View Details</a>
+                </li>
+            }
+        </ul>
+
+        <div class="pagination">
+            <span>Page:</span>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <a asp-action="Index"
+                   asp-controller="HomeCtrl"
+                   asp-route-searchQuery="@searchQuery"
+                   asp-route-page="@i"
+                   class="page-link @(i == Model.CurrentPage ? "active" : "")">@i</a>
+            }
+        </div>
+    }
+    else
+    {
+        <div style="text-align: center; padding: 40px; color: var(--gray);">
+            <p>No products found matching your criteria.</p>
+        </div>
+    }
+</div>

@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Registration Successful";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/RegisterSuccess.css" asp-append-version="true" />
+}
+
+<div class="success-wrapper">
+    <div class="success-card">
+        <div class="success-icon">✅</div>
+
+        <h2>Success!</h2>
+        <p>Your account has been created successfully. You can now log in to your account.</p>
+
+        <div class="success-actions">
+            <a asp-controller="LoginCtrl" asp-action="Index" class="btn btn-primary" style="padding: 12px;">
+                Log In Now
+            </a>
+
+            <a asp-controller="HomeCtrl" asp-action="Index" class="btn btn-outline">
+                Return to Home Page
+            </a>
+        </div>
+    </div>
+</div>

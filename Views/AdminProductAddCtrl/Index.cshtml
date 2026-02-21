@@ -1,0 +1,50 @@
+﻿@model ShopASP.DTOs.ProductDto
+@using ShopASP.Utils
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/AdminProduct.css" asp-append-version="true" />
+}
+
+<div class="form-container">
+    <h2>Add New Product</h2>
+
+    @if (TempData[Constants.TempDataInfo] is string msg)
+    {
+        <div class="alert-success">@msg</div>
+    }
+
+    <form asp-controller="AdminProductAddCtrl" asp-action="Add" method="post">
+        <div class="form-group">
+            <label asp-for="Name">Product Name</label>
+            <input asp-for="Name" class="form-control" required placeholder="e.g. Coca-Cola" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price">Price</label>
+            <input asp-for="Price" class="form-control" type="number" step="0.01" required placeholder="0.00" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" class="form-control" placeholder="Enter product details..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="IsActive" class="checkbox-group">
+                <input asp-for="IsActive" checked="@(Model?.IsActive ?? true)" />
+                <span>Mark as Active (visible in shop)</span>
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">
+            Save Product
+        </button>
+    </form>
+
+    <div style="margin-top: 20px; text-align: center;">
+        <hr />
+        <a asp-controller="AdminPanelCtrl" asp-action="Index" class="btn btn-outline" style="margin-top: 10px;">
+            Back to Admin Panel
+        </a>
+    </div>
+</div>
